@@ -1,0 +1,70 @@
+/* .grid {
+  display: grid;
+  grid-template-columns: repeat(8, 12vmax);
+  grid-template-rows: repeat(8, 12vmax);
+  height: 80vh;
+}
+
+.grid > .playable,
+.grid > .empty {
+  border: 3px yellow solid;
+}
+
+.playable {
+  background-color: black;
+}
+
+.empty {
+  background-color: red;
+}
+
+body {
+  margin: 10;
+} */
+.grid-container {
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+  grid-template-areas:
+    "hello hello hello hello hello time time time"
+    "game game game game game game letters letters"
+    "game game game game game game letters letters";
+
+  grid-gap: 10px;
+  background-color: #2196f3;
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
+
+.item1 {
+  grid-area: hello;
+}
+.item2 {
+  grid-area: time;
+}
+.item3 {
+  grid-area: game;
+}
+.item4 {
+  grid-area: letters;
+}
+
+/* letters container */
+.game-grid {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto;
+  background-color: #2196f3;
+  padding: 10px;
+}
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
