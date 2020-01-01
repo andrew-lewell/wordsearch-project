@@ -4,6 +4,7 @@ class CreateGames < ActiveRecord::Migration[6.0]
       t.references :user, null: false, foreign_key: true
       t.string :difficulty
       t.integer :score
+      t.string :words
       t.timestamps
     end
   end

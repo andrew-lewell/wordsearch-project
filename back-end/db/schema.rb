@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2019_12_30_133227) do
     t.integer "user_id", null: false
     t.string "difficulty"
     t.integer "score"
+    t.string "words"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_games_on_user_id"
