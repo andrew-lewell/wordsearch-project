@@ -6,13 +6,26 @@ class GamesController < ApplicationController
 
   def show
     game = Game.find(params[:id])
-    get_words()
+    words = get_words.sample(10)
+
+    # game.words = words.join(" ")
+    words.each { |w|
+      game.words << w << " "
+    }
+
     render json: game, except: [:created_at, :updated_at]
   end
 
   def create
     game = Game.new(game_params)
-    words = get_words()
+    words = get_words.select { |w|
+      w.length > 2
+    }
+    puzzle_words = words.sample(10)
+    # game.words = words.join(" ")
+    puzzle_words.each { |w|
+      game.words << w << " "
+    }
 
     if game.save
       render json: game, except: [:created_at, :updated_at]
