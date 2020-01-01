@@ -72,11 +72,21 @@ body {
 /* puzzle */
 
 #puzzle-container {
-  border: 1px solid black;
-  padding: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   float: left;
   margin: 30px 20px;
 }
+body {
+  background-color: #111845;
+}
+
+/* {
+  border: 1px solid pink;
+  padding: 20px;
+  float: left;
+  margin: 30px 20px;
+}  */
 
 #puzzle-container div {
   width: 100%;
@@ -138,13 +148,15 @@ body {
 
 #puzzle-words li {
   padding: 3px 0;
-  font: 1em sans-serif;
+  font: 1.5em sans-serif;
+  color: rgb(202, 74, 138);
+  float: left;
 }
 /* indicates that the word has been found */
 
 #puzzle-words .wordFound {
   text-decoration: line-through;
-  color: gray;
+  color: rgb(165, 57, 187);
 }
 /**
 * Styles for the button
