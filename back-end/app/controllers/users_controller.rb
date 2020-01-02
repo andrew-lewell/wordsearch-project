@@ -14,11 +14,16 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(user_params)
-    if user.save
+    if User.exists?(username: params[:username])
+      user = User.where(username: params[:username]).first
       render json: user, except: [:created_at, :updated_at], include: :games
     else
-      render json: { error: "User could not be saved" }
+      user = User.new(user_params)
+      if user.save
+        render json: user, except: [:created_at, :updated_at], include: :games
+      else
+        render json: { error: "User could not be saved" }
+      end
     end
   end
 
