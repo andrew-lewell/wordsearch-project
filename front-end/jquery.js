@@ -63,7 +63,7 @@ function recreate() {
   }
   window.game = game;
 }
-recreate();
+// recreate();
 
 // /* Event listeners */
 // $("#extra-letters").change(evt =>

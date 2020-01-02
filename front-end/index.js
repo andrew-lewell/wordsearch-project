@@ -50,11 +50,12 @@ const renderLogin = () => {
             difficulty: "EASY",
             score: 0
           })
-        });
+        })
+          .then(resp => resp.json())
+          .then(resp => bringBackDivs());
       });
 
     div.style.display = "none";
-    
   });
 
   h3Username.append(nameInput);
@@ -69,6 +70,21 @@ const renderLogin = () => {
   const pSolveBtn = document.querySelector("#solve");
   pSolveBtn.style.display = "none";
 };
+
+function bringBackDivs() {
+  const pDiv = document.querySelector("#puzzle");
+  pDiv.style.display = "block";
+  const pUl = document.querySelector("#words");
+  pUl.style.display = "block";
+  const pSolveBtn = document.querySelector("#solve");
+  pSolveBtn.style.display = "block";
+  const loginDiv = document.querySelector("#login");
+  loginDiv.style.display = "none";
+  // const div=document.createElement("#puzzle");
+  // const ul=document.createElement("#words");
+  // const solveButton=document.createElement("button");
+  // solveButton.attr("id")
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   init();
