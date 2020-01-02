@@ -58,6 +58,8 @@ function score_alert(user_info, gameID) {
   });
 }
 
+let gameId = 0;
+
 const init = () => {
   renderLogin();
 };
@@ -155,6 +157,8 @@ const renderNewGame = game => {
   pDiv.style.display = "block";
   const pUl = document.querySelector("#words");
   pUl.style.display = "block";
+
+  
 
   const wordsArray = game.words.split(" ");
 
