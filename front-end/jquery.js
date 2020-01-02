@@ -1,26 +1,25 @@
-/* Example words setup */
 [
   "adorable",
   "comique",
-  "curieuse"
-  // "drole",
-  // "engagee",
-  // "enjouee",
-  // "fidele",
-  // "futee",
-  // "radieuse",
-  // "sensible",
-  // "sincere",
-  // "complice",
-  // "creative",
-  // "elegante",
-  // "farceuse",
-  // "joviale",
-  // "motivee",
-  // "ordonnee",
-  // "prudente",
-  // "sexy",
-  // "tendre"
+  "curieuse",
+  "drole",
+  "engagee",
+  "enjouee",
+  "fidele",
+  "futee",
+  "radieuse",
+  "sensible",
+  "sincere",
+  "complice",
+  "creative",
+  "elegante",
+  "farceuse",
+  "joviale",
+  "motivee",
+  "ordonnee",
+  "prudente",
+  "sexy",
+  "tendre"
 ].map(word => WordFindGame.insertWordBefore($("#add-word").parent(), word));
 $("#secret-word").val("LAETITIA");
 
@@ -28,7 +27,6 @@ $("#secret-word").val("LAETITIA");
 function recreate() {
   $("#result-message").removeClass();
   var fillBlanks, game;
-  fillBlanks = true;
   // if ($("#extra-letters").val() === "none") {
   //   fillBlanks = false;
   // } else if (
@@ -63,21 +61,17 @@ function recreate() {
   }
   window.game = game;
 }
-// recreate();
-
-// /* Event listeners */
+recreate();
+/* Event listeners */
 // $("#extra-letters").change(evt =>
 //   $("#secret-word").prop(
 //     "disabled",
 //     !evt.target.value.startsWith("secret-word")
 //   )
 // );
-
 // $("#add-word").click(() =>
 //   WordFindGame.insertWordBefore($("#add-word").parent())
 // );
-
 // $("#create-grid").click(recreate);
 
-recreate();
 $("#solve").click(() => game.solve());
