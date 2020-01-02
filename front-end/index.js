@@ -5,6 +5,8 @@ const GAME_URL = "http://localhost:3000/games";
 var gameID = 0;
 var score = 0;
 
+let gameId = 0;
+
 const init = () => {
   renderLogin();
 };
@@ -77,6 +79,8 @@ const renderNewGame = game => {
   pUl.style.display = "block";
   const pSolveBtn = document.querySelector("#solve");
   pSolveBtn.style.display = "block";
+
+  
 
   const wordsArray = game.words.split(" ");
 
