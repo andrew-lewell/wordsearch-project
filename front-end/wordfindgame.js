@@ -222,12 +222,16 @@
      *
      */
     var endTurn = function() {
+      let score = 0;
       // see if we formed a valid word
       for (var i = 0, len = wordList.length; i < len; i++) {
         if (wordList[i] === curWord) {
           $(".selected").addClass("found");
           wordList.splice(i, 1);
           $('input.word[value="' + curWord + '"]').addClass("wordFound");
+          score += 10;
+          let score_counter = document.querySelector(".score_counter");
+          score_counter.innerText = `Your score is: ${score}`;
         }
 
         if (wordList.length === 0) {

@@ -1,41 +1,43 @@
-let words = [
+/* Example words setup */
+[
   "adorable",
   "comique",
-  "curieuse",
-  "drole",
-  "engagee",
-  "enjouee",
-  "fidele",
-  "futee",
-  "radieuse",
-  "sensible",
-  "sincere",
-  "complice",
-  "creative",
-  "elegante",
-  "farceuse",
-  "joviale",
-  "motivee",
-  "ordonnee",
-  "prudente",
-  "sexy",
-  "tendre"
-];
-words.map(word => WordFindGame.insertWordBefore($("#add-word").parent(), word));
+  "curieuse"
+  // "drole",
+  // "engagee",
+  // "enjouee",
+  // "fidele",
+  // "futee",
+  // "radieuse",
+  // "sensible",
+  // "sincere",
+  // "complice",
+  // "creative",
+  // "elegante",
+  // "farceuse",
+  // "joviale",
+  // "motivee",
+  // "ordonnee",
+  // "prudente",
+  // "sexy",
+  // "tendre"
+].map(word => WordFindGame.insertWordBefore($("#add-word").parent(), word));
 $("#secret-word").val("LAETITIA");
+
 /* Init */
 function recreate() {
   $("#result-message").removeClass();
   var fillBlanks, game;
-  if ($("#extra-letters").val() === "none") {
-    fillBlanks = false;
-  } else if (
-    $("#extra-letters")
-      .val()
-      .startsWith("secret-word")
-  ) {
-    fillBlanks = $("#secret-word").val();
-  }
+  fillBlanks = true;
+  // if ($("#extra-letters").val() === "none") {
+  //   fillBlanks = false;
+  // } else if (
+  //   $("#extra-letters")
+  //     .val()
+  //     .startsWith("secret-word")
+  // ) {
+  //   fillBlanks = $("#secret-word").val();
+  // }
   try {
     game = new WordFindGame("#puzzle", {
       allowedMissingWords: +$("#allowed-missing-words").val(),
@@ -62,15 +64,20 @@ function recreate() {
   window.game = game;
 }
 recreate();
-/* Event listeners */
-$("#extra-letters").change(evt =>
-  $("#secret-word").prop(
-    "disabled",
-    !evt.target.value.startsWith("secret-word")
-  )
-);
-$("#add-word").click(() =>
-  WordFindGame.insertWordBefore($("#add-word").parent())
-);
-$("#create-grid").click(recreate);
+
+// /* Event listeners */
+// $("#extra-letters").change(evt =>
+//   $("#secret-word").prop(
+//     "disabled",
+//     !evt.target.value.startsWith("secret-word")
+//   )
+// );
+
+// $("#add-word").click(() =>
+//   WordFindGame.insertWordBefore($("#add-word").parent())
+// );
+
+// $("#create-grid").click(recreate);
+
+recreate();
 $("#solve").click(() => game.solve());
