@@ -43,7 +43,7 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:difficulty)
+    params.require(:user_id)
   end
 
   def get_words()
