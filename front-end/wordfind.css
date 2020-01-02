@@ -35,7 +35,7 @@ h1 {
   */
 #puzzle {
   display: inline-block;
-  border: 1px solid black;
+  border: 2px solid black;
   padding: 3vw;
 }
 
@@ -50,7 +50,7 @@ h1 {
   height: 7vw;
   width: 7vw;
   text-transform: uppercase;
-  background-color: white;
+  background-color: rgb(122, 139, 218);
   border: 0;
   font: 5vw sans-serif;
 }
@@ -77,7 +77,7 @@ button::-moz-focus-inner {
 
 /* indicates that the square is part of a word that has been found */
 #puzzle .found {
-  background-color: blue;
+  background-color: rgb(209, 66, 178);
   color: white;
 }
 
@@ -184,3 +184,4 @@ h3 {
 #login {
   text-align: center;
 }
+
