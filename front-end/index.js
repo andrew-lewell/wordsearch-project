@@ -50,11 +50,12 @@ const renderLogin = () => {
             difficulty: "EASY",
             score: 0
           })
-        });
+        })
+          .then(resp => resp.json())
+          .then(game => renderNewGame(game));
       });
 
-    div.style.display = "none";
-    
+    // div.style.display = "none";
   });
 
   h3Username.append(nameInput);
@@ -68,6 +69,54 @@ const renderLogin = () => {
   pUl.style.display = "none";
   const pSolveBtn = document.querySelector("#solve");
   pSolveBtn.style.display = "none";
+};
+
+const renderNewGame = game => {
+  const loginDiv = document.querySelector("#login");
+  loginDiv.style.display = "none";
+  const pDiv = document.querySelector("#puzzle");
+  pDiv.style.display = "block";
+  const pUl = document.querySelector("#words");
+  pUl.style.display = "block";
+  const pSolveBtn = document.querySelector("#solve");
+  pSolveBtn.style.display = "block";
+
+  const wordsArray = game.words.split(" ");
+
+  wordsArray.map(word =>
+    WordFindGame.insertWordBefore($("#add-word").parent(), word)
+  );
+  /* Init */
+  function recreate() {
+    $("#result-message").removeClass();
+    var fillBlanks, game;
+    try {
+      game = new WordFindGame("#puzzle", {
+        allowedMissingWords: +$("#allowed-missing-words").val(),
+        maxGridGrowth: +$("#max-grid-growth").val(),
+        fillBlanks: fillBlanks,
+        allowExtraBlanks: ["none", "secret-word-plus-blanks"].includes(
+          $("#extra-letters").val()
+        ),
+        maxAttempts: 100
+      });
+    } catch (error) {
+      $("#result-message")
+        .text(`😞 ${error}, try to specify less ones`)
+        .css({ color: "red" });
+      return;
+    }
+    wordfind.print(game);
+    if (window.game) {
+      var emptySquaresCount = WordFindGame.emptySquaresCount();
+      $("#result-message")
+        .text(`😃 ${emptySquaresCount ? "but there are empty squares" : ""}`)
+        .css({ color: "" });
+    }
+    window.game = game;
+  }
+  recreate();
+  $("#solve").click(() => game.solve());
 };
 
 document.addEventListener("DOMContentLoaded", () => {

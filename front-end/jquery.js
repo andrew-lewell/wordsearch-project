@@ -1,4 +1,4 @@
-let words = [
+[
   "adorable",
   "comique",
   "curieuse",
@@ -20,22 +20,21 @@ let words = [
   "prudente",
   "sexy",
   "tendre"
-];
-words.map(word => WordFindGame.insertWordBefore($("#add-word").parent(), word));
+].map(word => WordFindGame.insertWordBefore($("#add-word").parent(), word));
 $("#secret-word").val("LAETITIA");
 /* Init */
 function recreate() {
   $("#result-message").removeClass();
   var fillBlanks, game;
-  if ($("#extra-letters").val() === "none") {
-    fillBlanks = false;
-  } else if (
-    $("#extra-letters")
-      .val()
-      .startsWith("secret-word")
-  ) {
-    fillBlanks = $("#secret-word").val();
-  }
+  // if ($("#extra-letters").val() === "none") {
+  //   fillBlanks = false;
+  // } else if (
+  //   $("#extra-letters")
+  //     .val()
+  //     .startsWith("secret-word")
+  // ) {
+  //   fillBlanks = $("#secret-word").val();
+  // }
   try {
     game = new WordFindGame("#puzzle", {
       allowedMissingWords: +$("#allowed-missing-words").val(),
@@ -63,14 +62,15 @@ function recreate() {
 }
 recreate();
 /* Event listeners */
-$("#extra-letters").change(evt =>
-  $("#secret-word").prop(
-    "disabled",
-    !evt.target.value.startsWith("secret-word")
-  )
-);
-$("#add-word").click(() =>
-  WordFindGame.insertWordBefore($("#add-word").parent())
-);
-$("#create-grid").click(recreate);
+// $("#extra-letters").change(evt =>
+//   $("#secret-word").prop(
+//     "disabled",
+//     !evt.target.value.startsWith("secret-word")
+//   )
+// );
+// $("#add-word").click(() =>
+//   WordFindGame.insertWordBefore($("#add-word").parent())
+// );
+// $("#create-grid").click(recreate);
+
 $("#solve").click(() => game.solve());
