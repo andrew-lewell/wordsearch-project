@@ -4,6 +4,7 @@ const USER_URL = "http://localhost:3000/users";
 const GAME_URL = "http://localhost:3000/games";
 var gameID = 0;
 var score = 0;
+var userID;
 
 function score_alert(user_info, gameID) {
   let total_score = 0;
@@ -18,7 +19,42 @@ function score_alert(user_info, gameID) {
       url("images/nyan-cat.gif")
       left top
       no-repeat
-    `
+    `,
+    showCloseButton: true,
+    showCancelButton: true,
+    focusConfirm: false,
+    confirmButtonText: "Play again",
+    confirmButtonAriaLabel: "",
+    cancelButtonText: "leave",
+    cancelButtonAriaLabel: ""
+  }).then(result => {
+    if (result.value) {
+      fetch(GAME_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_id: userID,
+          difficulty: "EASY",
+          score: 0
+        })
+      })
+        .then(resp => resp.json())
+        .then(game => {
+          //document.body.innerHTML = "";
+          //document.getElementById("words").innerHTML = "";
+          document
+            .querySelectorAll(".word")
+            .forEach(el => el.parentNode.removeChild(el));
+          //document.getElementById("words").innerHTML = "";
+          score = 0;
+          let score_counter = document.querySelector(".score_counter");
+          score_counter.innerText = `Your score is: ${score}`;
+
+          renderNewGame(game);
+        });
+    } else {
+      renderLogin();
+    }
   });
 }
 
@@ -65,7 +101,9 @@ const renderLogin = () => {
           })
         })
           .then(resp => resp.json())
-          .then(game => renderNewGame(game));
+          .then(game => {
+            renderNewGame(game);
+          });
       });
 
     // div.style.display = "none";
@@ -76,13 +114,36 @@ const renderLogin = () => {
   main.append(div);
 
   //hide puzzle
+
   const pDiv = document.querySelector("#puzzle");
   pDiv.style.display = "none";
   const pUl = document.querySelector("#words");
   pUl.style.display = "none";
-  const pSolveBtn = document.querySelector("#solve");
-  pSolveBtn.style.display = "none";
 };
+
+/* Init */
+function recreate() {
+  $("#result-message").removeClass();
+  var fillBlanks, game;
+  game = new WordFindGame("#puzzle", {
+    allowedMissingWords: +$("#allowed-missing-words").val(),
+    maxGridGrowth: +$("#max-grid-growth").val(),
+    fillBlanks: fillBlanks,
+    allowExtraBlanks: ["none", "secret-word-plus-blanks"].includes(
+      $("#extra-letters").val()
+    ),
+    maxAttempts: 100
+  });
+
+  wordfind.print(game);
+  if (window.game) {
+    var emptySquaresCount = WordFindGame.emptySquaresCount();
+    $("#result-message")
+      .text(`😃 ${emptySquaresCount ? "but there are empty squares" : ""}`)
+      .css({ color: "" });
+  }
+  window.game = game;
+}
 
 const renderNewGame = game => {
   gameID = game.id;
@@ -94,43 +155,13 @@ const renderNewGame = game => {
   pDiv.style.display = "block";
   const pUl = document.querySelector("#words");
   pUl.style.display = "block";
-  const pSolveBtn = document.querySelector("#solve");
-  pSolveBtn.style.display = "block";
 
   const wordsArray = game.words.split(" ");
 
   wordsArray.map(word =>
     WordFindGame.insertWordBefore($("#add-word").parent(), word)
   );
-  /* Init */
-  function recreate() {
-    $("#result-message").removeClass();
-    var fillBlanks, game;
-    try {
-      game = new WordFindGame("#puzzle", {
-        allowedMissingWords: +$("#allowed-missing-words").val(),
-        maxGridGrowth: +$("#max-grid-growth").val(),
-        fillBlanks: fillBlanks,
-        allowExtraBlanks: ["none", "secret-word-plus-blanks"].includes(
-          $("#extra-letters").val()
-        ),
-        maxAttempts: 100
-      });
-    } catch (error) {
-      $("#result-message")
-        .text(`😞 ${error}, try to specify less ones`)
-        .css({ color: "red" });
-      return;
-    }
-    wordfind.print(game);
-    if (window.game) {
-      var emptySquaresCount = WordFindGame.emptySquaresCount();
-      $("#result-message")
-        .text(`😃 ${emptySquaresCount ? "but there are empty squares" : ""}`)
-        .css({ color: "" });
-    }
-    window.game = game;
-  }
+
   recreate();
   $("#solve").click(() => game.solve());
 };
@@ -390,7 +421,10 @@ document.addEventListener("DOMContentLoaded", () => {
             body: JSON.stringify({ score: score })
           })
             .then(resp => resp.json())
-            .then(data => score_alert(data, gameID));
+            .then(data => {
+              userID = data.id;
+              score_alert(data, gameID);
+            });
         }
       }
 
