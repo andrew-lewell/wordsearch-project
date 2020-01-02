@@ -22,6 +22,7 @@
   "tendre"
 ].map(word => WordFindGame.insertWordBefore($("#add-word").parent(), word));
 $("#secret-word").val("LAETITIA");
+
 /* Init */
 function recreate() {
   $("#result-message").removeClass();
