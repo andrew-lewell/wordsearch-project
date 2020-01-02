@@ -221,8 +221,8 @@
      * resets the game state to start a new word.
      *
      */
+    var score = 0;
     var endTurn = function() {
-      let score = 0;
       // see if we formed a valid word
       for (var i = 0, len = wordList.length; i < len; i++) {
         if (wordList[i] === curWord) {

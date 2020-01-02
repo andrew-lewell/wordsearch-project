@@ -9,6 +9,8 @@ function fillGrid() {
 const USER_URL = "http://localhost:3000/users";
 const GAME_URL = "http://localhost:3000/games";
 
+let gameId = 0;
+
 const init = () => {
   renderLogin();
 };
@@ -80,6 +82,8 @@ const renderNewGame = game => {
   pUl.style.display = "block";
   const pSolveBtn = document.querySelector("#solve");
   pSolveBtn.style.display = "block";
+
+  
 
   const wordsArray = game.words.split(" ");
 
