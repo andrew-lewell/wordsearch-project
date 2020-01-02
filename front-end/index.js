@@ -5,6 +5,23 @@ const GAME_URL = "http://localhost:3000/games";
 var gameID = 0;
 var score = 0;
 
+function score_alert(user_info, gameID) {
+  let total_score = 0;
+  user_info.games.forEach(game => (total_score += game.score));
+
+  Swal.fire({
+    title: `Your current game score is: ${score}, and your total score is: ${total_score} `,
+    width: 600,
+    padding: "3em",
+    backdrop: `
+      rgba(0,0,123,0.4)
+      url("images/nyan-cat.gif")
+      left top
+      no-repeat
+    `
+  });
+}
+
 const init = () => {
   renderLogin();
 };
@@ -69,6 +86,8 @@ const renderLogin = () => {
 
 const renderNewGame = game => {
   gameID = game.id;
+
+  userID = game.user_id;
   const loginDiv = document.querySelector("#login");
   loginDiv.style.display = "none";
   const pDiv = document.querySelector("#puzzle");
@@ -369,7 +388,9 @@ document.addEventListener("DOMContentLoaded", () => {
               "Content-Type": "application/json"
             },
             body: JSON.stringify({ score: score })
-          });
+          })
+            .then(resp => resp.json())
+            .then(data => score_alert(data, gameID));
         }
       }
 

@@ -1,4 +1,5 @@
 
+
 class GamesController < ApplicationController
   def index
     games = Game.all
@@ -26,7 +27,10 @@ class GamesController < ApplicationController
   def update
     game = Game.find(params[:id])
     game.update(game_params)
-    render json: game, except: [:created_at, :updated_at]
+    userID = game.user_id
+    user = User.find(userID)
+
+    render json: user, except: [:created_at, :updated_at], include: [:games]
   end
 
   private
