@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   def create
     user = User.new(user_params)
     if user.save
-      ender json: user, except: [:created_at, :updated_at], include: :games
+      render json: user, except: [:created_at, :updated_at], include: :games
     else
       render json: { error: "User could not be saved" }
     end
@@ -25,6 +25,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:username)
+    params.require(:user).permit(:username)
   end
 end
