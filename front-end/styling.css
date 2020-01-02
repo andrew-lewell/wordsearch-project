@@ -165,3 +165,8 @@ body {
 #solve {
   margin: 0 30px;
 }
+
+#username {
+  border: 2px solid black;
+  border-radius: 4px;
+}
