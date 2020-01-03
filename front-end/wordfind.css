@@ -117,7 +117,6 @@ button::-moz-focus-inner {
 
 /* indicates that the word has been found */
 .wordFound {
-  
 
   animation-name: strike;
   animation-duration: 2s;
@@ -170,6 +169,7 @@ select {
 #username {
   border: 2px solid black;
   border-radius: 4px;
+  text-align: center;
 }
 
 h3 {
