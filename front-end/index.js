@@ -2,11 +2,13 @@
 
 const USER_URL = "http://localhost:3000/users";
 const GAME_URL = "http://localhost:3000/games";
-var gameID = 0;
+var game;
 var score = 0;
+var gameID;
 var userID;
 
-function score_alert(user_info, gameID) {
+function score_alert(user_info) {
+  userID = user_info.id;
   let total_score = 0;
   user_info.games.forEach(game => (total_score += game.score));
 
@@ -53,12 +55,14 @@ function score_alert(user_info, gameID) {
           renderNewGame(game);
         });
     } else {
+      document
+        .querySelectorAll(".word")
+        .forEach(el => el.parentNode.removeChild(el));
+
       renderLogin();
     }
   });
 }
-
-let gameId = 0;
 
 const init = () => {
   renderLogin();
@@ -157,8 +161,6 @@ const renderNewGame = game => {
   pDiv.style.display = "block";
   const pUl = document.querySelector("#words");
   pUl.style.display = "block";
-
-  
 
   const wordsArray = game.words.split(" ");
 
@@ -427,7 +429,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(resp => resp.json())
             .then(data => {
               userID = data.id;
-              score_alert(data, gameID);
+              score_alert(data);
             });
         }
       }
