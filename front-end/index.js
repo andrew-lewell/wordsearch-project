@@ -2,11 +2,15 @@
 
 const USER_URL = "http://localhost:3000/users";
 const GAME_URL = "http://localhost:3000/games";
-var gameID = 0;
+var game;
 var score = 0;
+var gameID;
 var userID;
 
 function score_alert(user_info) {
+
+  userID = user_info.id;
+
   let total_score = 0;
   user_info.games.forEach(game => (total_score += game.score));
 
@@ -56,6 +60,7 @@ function score_alert(user_info) {
       document
         .querySelectorAll(".word")
         .forEach(el => el.parentNode.removeChild(el));
+
       renderLogin();
     }
   });
@@ -152,6 +157,7 @@ const renderNewGame = game => {
   // p.setAttribute("class", "score_counter");
   // p.innerText = `Current score: ${score}`;
   // pUl.append(p);
+
 
   const wordsArray = game.words.split(" ");
 
