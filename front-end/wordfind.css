@@ -117,6 +117,7 @@ button::-moz-focus-inner {
 
 /* indicates that the word has been found */
 .wordFound {
+
   animation-name: strike;
   animation-duration: 2s;
   animation-timing-function: linear;
