@@ -6,7 +6,7 @@ var gameID = 0;
 var score = 0;
 var userID;
 
-function score_alert(user_info, gameID) {
+function score_alert(user_info) {
   let total_score = 0;
   user_info.games.forEach(game => (total_score += game.score));
 
@@ -25,7 +25,7 @@ function score_alert(user_info, gameID) {
     focusConfirm: false,
     confirmButtonText: "Play again",
     confirmButtonAriaLabel: "",
-    cancelButtonText: "leave",
+    cancelButtonText: "Exit",
     cancelButtonAriaLabel: ""
   }).then(result => {
     if (result.value) {
@@ -33,7 +33,7 @@ function score_alert(user_info, gameID) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          user_id: userID,
+          user_id: user_info.id,
           difficulty: "EASY",
           score: 0
         })
@@ -53,33 +53,30 @@ function score_alert(user_info, gameID) {
           renderNewGame(game);
         });
     } else {
+      document
+        .querySelectorAll(".word")
+        .forEach(el => el.parentNode.removeChild(el));
       renderLogin();
     }
   });
 }
-
-let gameId = 0;
 
 const init = () => {
   renderLogin();
 };
 
 const renderLogin = () => {
-  const main = document.querySelector("#main");
-  const div = document.createElement("div");
-  div.setAttribute("id", "login");
-  // div.style.vw = "100vw";
-  // div.style.color = "red";
-  const h1 = document.createElement("h1");
-  h1.innerText = "WELCOME TO WORDHUNTER";
-  const h3Username = document.createElement("h3");
-  h3Username.innerText = "Please enter your name:  ";
-  const nameInput = document.createElement("input");
-  nameInput.setAttribute("type", "text");
-  nameInput.setAttribute("id", "username");
-  const createGameBtn = document.createElement("button");
-  createGameBtn.innerText = "Start new game";
-  createGameBtn.setAttribute("class", "button");
+  const scoreP = document.querySelector(".score_counter");
+  scoreP.innerText = "";
+  score = 0;
+  // const main = document.querySelector("#main");
+  const div = document.querySelector("#login");
+  div.style.display = "block";
+  const nameInput = document.querySelector("#username");
+  nameInput.style.display = "inline";
+  nameInput.value = "";
+  const createGameBtn = document.querySelector(".button");
+  createGameBtn.style.display = "inline";
   createGameBtn.addEventListener("click", e => {
     e.preventDefault();
     const newUsername = document.querySelector("#username").value;
@@ -107,13 +104,7 @@ const renderLogin = () => {
             renderNewGame(game);
           });
       });
-
-    // div.style.display = "none";
   });
-
-  h3Username.append(nameInput);
-  div.append(h1, h3Username, createGameBtn);
-  main.append(div);
 
   //hide puzzle
 
@@ -157,8 +148,10 @@ const renderNewGame = game => {
   pDiv.style.display = "block";
   const pUl = document.querySelector("#words");
   pUl.style.display = "block";
-
-  
+  // const p = document.createElement("p");
+  // p.setAttribute("class", "score_counter");
+  // p.innerText = `Current score: ${score}`;
+  // pUl.append(p);
 
   const wordsArray = game.words.split(" ");
 
@@ -427,7 +420,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(resp => resp.json())
             .then(data => {
               userID = data.id;
-              score_alert(data, gameID);
+              score_alert(data);
             });
         }
       }
