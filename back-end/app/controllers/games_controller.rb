@@ -44,6 +44,6 @@ class GamesController < ApplicationController
   end
 
   def sample_words
-    get_words.select { |w| w.length > 3 }.sample(10).join(" ")
+    get_words.select { |w| w.length > 8 }.sample(10).join(" ")
   end
 end

@@ -8,7 +8,6 @@ var gameID;
 var userID;
 
 function score_alert(user_info) {
-
   userID = user_info.id;
 
   let total_score = 0;
@@ -25,7 +24,7 @@ function score_alert(user_info) {
       no-repeat
     `,
     showCloseButton: true,
-    showCancelButton: true,
+    showCancelButton: false,
     focusConfirm: false,
     confirmButtonText: "Play again",
     confirmButtonAriaLabel: "",
@@ -52,7 +51,7 @@ function score_alert(user_info) {
           //document.getElementById("words").innerHTML = "";
           score = 0;
           let score_counter = document.querySelector(".score_counter");
-          score_counter.innerText = `Your score is: ${score}`;
+          score_counter.innerText = `  Current Score: ${score}`;
 
           renderNewGame(game);
         });
@@ -157,7 +156,6 @@ const renderNewGame = game => {
   // p.setAttribute("class", "score_counter");
   // p.innerText = `Current score: ${score}`;
   // pUl.append(p);
-
 
   const wordsArray = game.words.split(" ");
 
@@ -410,7 +408,7 @@ document.addEventListener("DOMContentLoaded", () => {
           $('input.word[value="' + curWord + '"]').addClass("wordFound");
           score += 10;
           let score_counter = document.querySelector(".score_counter");
-          score_counter.innerText = `Your score is: ${score}`;
+          score_counter.innerText = `    Current Score: ${score}`;
         }
 
         if (wordList.length === 0) {

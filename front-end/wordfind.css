@@ -13,6 +13,7 @@ body {
 p {
   font: 22pt sans-serif;
   margin: 20px 20px 0px 20px;
+  display: inline;
 }
 
 h1 {
@@ -117,7 +118,6 @@ button::-moz-focus-inner {
 
 /* indicates that the word has been found */
 .wordFound {
-
   animation-name: strike;
   animation-duration: 2s;
   animation-timing-function: linear;
